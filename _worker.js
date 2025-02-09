@@ -75,7 +75,7 @@ export default {
 			if (env.KV) {
 				await 迁移地址列表(env, 'LINK.txt');
 				if (userAgent.includes('mozilla') && !url.search) {
-					await sendMessage(`#编辑订阅 ${FileName}`, request.headers.get('CF-Connecting-IP'), `UA: ${userAgentHeader}\nUrl: ${url.hostname}\nParth: ${url.pathname + url.search}`);
+					await sendMessage(`#Edit-subscription ${FileName}`, request.headers.get('CF-Connecting-IP'), `UA: ${userAgentHeader}\nUrl: ${url.hostname}\nParth: ${url.pathname + url.search}`);
 					return await KV(request, env, 'LINK.txt', 访客订阅);
 				} else {
 					MainData = await env.KV.get('LINK.txt') || MainData;
@@ -271,7 +271,7 @@ async function nginx() {
 async function sendMessage(type, ip, add_data = "") {
 	if (BotToken !== '' && ChatID !== '') {
 		let msg = "";
-		const response = await fetch(`http://ip-api.com/json/${ip}?lang=zh-CN`);
+		const response = await fetch(`http://ip-api.com/json/${ip}?lang=en`);
 		if (response.status == 200) {
 			const ipInfo = await response.json();
 			msg = `${type}\nIP: ${ip}\nCountry: ${ipInfo.country}\nCity: ${ipInfo.city}\nORG: ${ipInfo.org}\nASN: ${ipInfo.as}\n${add_data}`;
@@ -588,7 +588,7 @@ async function KV(request, env, txt = 'ADD.txt', guest) {
 					################################################################<br>
 					Subscribe / sub 订阅地址, 点击链接自动 <strong>复制订阅链接</strong> 并 <strong>生成订阅二维码</strong> <br>
 					---------------------------------------------------------------<br>
-					自适应订阅地址:<br>
+					Adaptive subscription address:<br>
 					<a href="javascript:void(0)" onclick="copyToClipboard('https://${url.hostname}/${mytoken}?b64','qrcode_0')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${url.hostname}/${mytoken}</a><br>
 					<div id="qrcode_0" style="margin: 10px 10px 10px 10px;"></div>
 					Base64订阅地址:<br>
